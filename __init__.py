@@ -28,7 +28,7 @@ from mycroft import intent_file_handler
 
 class XenonPlatform(MycroftSkill):
 
-    IDLE_CHECK_FREQUENCY = 6  # in seconds
+    IDLE_CHECK_FREQUENCY = 1  # in seconds
 
     def __init__(self):
         super().__init__("XenonPlatform")
@@ -42,9 +42,14 @@ class XenonPlatform(MycroftSkill):
             # Handle changing the eye color once Mark 1 is ready to go
             # (Part of the statup sequence)
             # Handle the 'waking' visual
-                        
+            
             self.start_idle_check()
     
+            self.add_event('recognizer_loop:record_begin', 
+                           self.handle_listener_started)
+            self.gui.register_handler('mycroft.gui.screen.close', 
+                                      self.show_xenon_screen)
+            
         except Exception:
             LOG.exception('In Xenon Platform Skill')
 
