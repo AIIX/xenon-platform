@@ -47,6 +47,7 @@ class XenonPlatform(MycroftSkill):
     
             self.add_event('recognizer_loop:record_begin', 
                            self.handle_listener_started)
+            self.add_event('mycroft.gui.screen.close', self.show_xenon_screen)
             self.gui.register_handler('mycroft.gui.screen.close', 
                                       self.show_xenon_screen)
             
