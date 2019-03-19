@@ -72,7 +72,8 @@ class XenonPlatform(MycroftSkill):
         
         if self.idle_count == 5:
             # Go into a 'sleep' visual state
-            self.show_xenon_screen()
+            #self.show_xenon_screen()
+            self.gui.send_event('mycroft.gui.close.screen', {})
         elif self.idle_count > 5:
             self.cancel_scheduled_event('IdleCheck')
 
@@ -92,7 +93,9 @@ class XenonPlatform(MycroftSkill):
                 
     def show_xenon_screen(self):
         """ When listening has ended show the thinking animation. """
-        self.gui.show_page('blank.qml')
-                        
+        print("sent back")
+        self.gui.send_event('mycroft.gui.close.screen', {})
+        #self.gui.show_page('blank.qml')
+        
 def create_skill():
     return XenonPlatform()
