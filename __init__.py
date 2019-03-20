@@ -34,6 +34,7 @@ class XenonPlatform(MycroftSkill):
         super().__init__("XenonPlatform")
 
         self.idle_count = 99
+        self.delay_time = 15
         self.override_idle = None
         self.settings['use_listening_beep'] = True
 
@@ -50,6 +51,7 @@ class XenonPlatform(MycroftSkill):
             self.add_event('mycroft.gui.screen.close', self.show_xenon_screen)
             self.gui.register_handler('mycroft.gui.screen.close', 
                                       self.show_xenon_screen)
+            self.add_event("mycroft.gui.touch.event", self.delay_event)
             
         except Exception:
             LOG.exception('In Xenon Platform Skill')
@@ -74,6 +76,7 @@ class XenonPlatform(MycroftSkill):
         if self.idle_count == 5:
             # Go into a 'sleep' visual state
             #self.show_xenon_screen()
+            self.delay_event()
             self.gui.send_event('mycroft.gui.close.screen', {})
         elif self.idle_count > 5:
             self.cancel_scheduled_event('IdleCheck')
@@ -97,6 +100,9 @@ class XenonPlatform(MycroftSkill):
         print("sent back")
         self.gui.send_event('mycroft.gui.close.screen', {})
         #self.gui.show_page('blank.qml')
-        
+  
+    def delay_event(self):
+        time.sleep(self.delay_time)
+  
 def create_skill():
     return XenonPlatform()
