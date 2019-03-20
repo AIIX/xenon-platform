@@ -51,7 +51,7 @@ class XenonPlatform(MycroftSkill):
             self.add_event('mycroft.gui.screen.close', self.show_xenon_screen)
             self.gui.register_handler('mycroft.gui.screen.close', 
                                       self.show_xenon_screen)
-            self.add_event("mycroft.gui.touch.event", self.delay_event)
+            self.add_event("mycroft.gui.user.interaction", self.delay_event)
             
         except Exception:
             LOG.exception('In Xenon Platform Skill')
